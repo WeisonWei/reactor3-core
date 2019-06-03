@@ -1,4 +1,4 @@
-package com.midgetontoes.reactorexamples;
+package com.reactor.flux;
 
 import reactor.core.publisher.Flux;
 

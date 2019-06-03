@@ -1,4 +1,4 @@
-package com.midgetontoes.reactorexamples;
+package com.reactor.flux;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;

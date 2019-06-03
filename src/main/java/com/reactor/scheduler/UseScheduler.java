@@ -1,4 +1,4 @@
-package com.midgetontoes.reactorexamples;
+package com.reactor.scheduler;
 
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;

@@ -1,4 +1,4 @@
-package com.midgetontoes.reactorexamples;
+package com.reactor.mono;
 
 import reactor.core.publisher.Mono;
 
