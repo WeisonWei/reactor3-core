@@ -4,36 +4,66 @@ import org.apache.commons.lang3.StringUtils;
 import reactor.core.publisher.Flux;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
-public class Operators {
+public class FluxOperators {
     public static void main(String[] args) {
         printLine("buffer");
         buffer();
         printLine("filter");
-        filter();
+        //filter();
         printLine("window");
-        window();
+        //window();
         printLine("zipWith");
-        zipWith();
+        //zipWith();
         printLine("take");
-        take();
+        //take();
         printLine("reduce");
-        reduce();
+        //reduce();
         printLine("merge");
-        merge();
+        //merge();
         printLine("flatMap");
-        flatMap();
+        //flatMap();
         printLine("concatMap");
-        concatMap();
+        //concatMap();
         printLine("combineLatest");
-        combineLatest();
+        //combineLatest();
+
+        /*Flux.fromIterable(getSomeLongList())
+                .delayElements(Duration.ofMillis(100))
+                .doOnNext(serviceA::someObserver)
+                .map(d -> d * 2)
+                .take(3)
+                .onErrorResumeWith(errorHandler::fallback)
+                .doAfterTerminate(serviceM::incrementTerminate)
+                .subscribe(System.out::println);*/
     }
 
     private static void buffer() {
-        Flux.range(1, 100).buffer(20).subscribe(System.out::println);
-        Flux.intervalMillis(100).bufferMillis(1001).take(2).toStream().forEach(System.out::println);
+        //每次缓存一定数量的元素到List buckets里，并push出去
+        Flux.range(1, 30).buffer(20).subscribe(System.out::println);
+        System.out.println("----------分割线---------1-");
+
+        //每次缓存一定数量，并跳过一定数量的元素到List buckets里，并push出去
+        Flux.range(1, 30).buffer(10,10).subscribe(System.out::println);
+        System.out.println("----------分割线---------2-");
+
+        //每次缓存一定数量，并跳过一定数量的元素到指定的Set buckets里，并push出去
+        Flux.range(1, 30).buffer(20,20, HashSet::new).subscribe(System.out::println);
+        System.out.println("----------分割线---------3-");
+
+        //指定时间内，每次缓存一定数量的元素到List buckets里，并push出去
+        Flux.intervalMillis(100).bufferMillis(500).take(3).toStream().forEach(System.out::println);
+        System.out.println("----------分割线---------4-");
+
+        //每次根据条件缓存一定数量的元素到List buckets里，并push出去
         Flux.range(1, 10).bufferUntil(i -> i % 2 == 0).subscribe(System.out::println);
+        System.out.println("----------分割线---------5-");
+
+        //每次缓存一定数量，并跳过一定数量的元素到指定的Set buckets里，并push出去
         Flux.range(1, 10).bufferWhile(i -> i % 2 == 0).subscribe(System.out::println);
+        System.out.println("----------分割线----------");
+
     }
 
     private static void filter() {
